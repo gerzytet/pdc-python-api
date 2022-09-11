@@ -12,7 +12,7 @@ Thanks to [CROSS](https://cross.ucsc.edu/) for supporting PDCpy through GSoC
 
 [More information about PDC](https://sdm.lbl.gov/pdc/about.html)
 
-[Documentation](https://hpc-io.github.io/PDCpy/)
+[Documentation](https://gerzytet.github.io/pdc-python-api/)
 
 # How To Install
 
