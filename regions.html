@@ -1,0 +1,184 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Regions &#8212; PDCpy 0.0.14 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/agogo.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Queries" href="queries.html" />
+    <link rel="prev" title="Objects" href="objects.html" /> 
+  </head><body>
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="index.html">PDCpy 0.0.14 documentation</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="objects.html" title="Objects"
+             accesskey="P">previous</a> |
+          <a href="queries.html" title="Queries"
+             accesskey="N">next</a> |
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="regions">
+<h1>Regions<a class="headerlink" href="#regions" title="Permalink to this heading">¶</a></h1>
+<p>A region describes a piece of an object’s data.
+Regions can be used to restrict the area of a tranfer request.
+Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">import</span> <span class="nn">pdc</span>
+<span class="linenos"> 2</span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="k">with</span> <span class="n">pdc</span><span class="o">.</span><span class="n">ServerContext</span><span class="p">():</span>
+<span class="linenos"> 5</span>   <span class="n">pdc</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+<span class="linenos"> 6</span>   <span class="n">cont</span> <span class="o">=</span> <span class="n">pdc</span><span class="o">.</span><span class="n">Container</span><span class="p">(</span><span class="s1">&#39;region_example_cont&#39;</span><span class="p">,</span> <span class="n">lifetime</span><span class="o">=</span><span class="n">pdc</span><span class="o">.</span><span class="n">Container</span><span class="o">.</span><span class="n">Lifetime</span><span class="o">.</span><span class="n">TRANSIENT</span><span class="p">)</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span>   <span class="n">data</span> <span class="o">=</span> <span class="p">[</span>
+<span class="linenos"> 9</span>      <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
+<span class="linenos">10</span>      <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="linenos">11</span>      <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+<span class="linenos">12</span>   <span class="p">]</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span>   <span class="n">obj</span> <span class="o">=</span> <span class="n">cont</span><span class="o">.</span><span class="n">object_from_array</span><span class="p">(</span><span class="s1">&#39;region_example_obj&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span>   <span class="n">data1</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">pdc</span><span class="o">.</span><span class="n">region</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span> <span class="c1"># [[2, 7, 6], [9, 5, 1]]</span>
+<span class="linenos">17</span>   <span class="n">data2</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">pdc</span><span class="o">.</span><span class="n">region</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span> <span class="c1"># [[2, 7]]</span>
+</pre></div>
+</div>
+<dl class="py property">
+<dt class="sig sig-object py" id="pdc.region">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pdc.</span></span><span class="sig-name descname"><span class="pre">region</span></span><a class="headerlink" href="#pdc.region" title="Permalink to this definition">¶</a></dt>
+<dd><p>An object used to create regions.
+See <code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code> for details.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pdc.</span></span><span class="sig-name descname"><span class="pre">Region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slice</span></span></em><span class="sig-paren">)</span></dt>
+<dd><div class="line-block">
+<div class="line">A region, which specifies the location of a ‘block’ of data.  </div>
+<div class="line">Regions are created by slicing the <a class="reference internal" href="#pdc.region" title="pdc.region"><code class="xref py py-class docutils literal notranslate"><span class="pre">region</span></code></a> object.</div>
+<div class="line">Examples:</div>
+<div class="line">all data of an object: <code class="docutils literal notranslate"><span class="pre">region[:]</span></code></div>
+<div class="line">the first row of a 2 dimensional object, or the first element of a 1 dimensional object: <code class="docutils literal notranslate"><span class="pre">region[0]</span></code></div>
+<div class="line">the first 3 elements of a 1 dimensional object: <code class="docutils literal notranslate"><span class="pre">region[:3]</span></code></div>
+<div class="line">the next 3 elements of a 1 dimensional object: <code class="docutils literal notranslate"><span class="pre">region[3:6]</span></code></div>
+<div class="line">the last 6 columns of the first 2 rows of an object: <code class="docutils literal notranslate"><span class="pre">region[:2,</span> <span class="pre">6:]</span></code></div>
+<div class="line"><br /></div>
+<div class="line">The slices used to create a region object may not have step values. (<code class="docutils literal notranslate"><span class="pre">region[1:100:4]</span></code> is invalid)</div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_absolute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dims</span></span></em><span class="sig-paren">)</span></dt>
+<dd><div class="line-block">
+<div class="line">Return a new absolute region, using the given dimensions to determine ommitted start and stop values.</div>
+<div class="line">Examples:</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">region[:].get_absolute((3,</span> <span class="pre">4))</span> <span class="pre">-&gt;</span> <span class="pre">region[0:3,</span> <span class="pre">0:4]</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">region[:2,</span> <span class="pre">6:].get_absolute((10,</span> <span class="pre">10))</span> <span class="pre">-&gt;</span> <span class="pre">region[0:2,</span> <span class="pre">6:10]</span></code></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">is_absolute</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><div class="line-block">
+<div class="line">A region is absolute if the region’s slices have both start and stop values.</div>
+<div class="line">returns True if the region is absolute</div>
+<div class="line">Examples:</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">region[2:3,</span> <span class="pre">:9]</span></code> is not absolute</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">region[2:3,</span> <span class="pre">8]</span></code> is absolute</div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          
+          <h3>Table of Contents</h3>
+          <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Welcome to PDCpy’s documentation!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#main-apis">Main APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="containers.html">Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="objects.html">Objects</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Regions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="queries.html">Queries</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+            </form>
+          </div>
+
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="objects.html" title="Objects"
+              >previous</a> |
+            <a href="queries.html" title="Queries"
+              >next</a> |
+            <a href="py-modindex.html" title="Python Module Index"
+              >modules</a> |
+            <a href="genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+              <br/>
+              <a href="_sources/regions.rst.txt"
+                rel="nofollow">Show Source</a>
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, gerzytet.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>
