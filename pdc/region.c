@@ -20,6 +20,9 @@
         ],
         "extra_compile_args": [
             "-Wl,-Bsymbolic-functions",
+            "-flto=auto",
+            "-ffat-lto-objects",
+            "-flto=auto",
             "-Wl,-z,relro",
             "-I/usr/include/x86_64-linux-gnu/mpich",
             "-L/usr/lib/x86_64-linux-gnu",
@@ -27,6 +30,9 @@
         ],
         "extra_link_args": [
             "-Wl,-Bsymbolic-functions",
+            "-flto=auto",
+            "-ffat-lto-objects",
+            "-flto=auto",
             "-Wl,-z,relro",
             "-I/usr/include/x86_64-linux-gnu/mpich",
             "-L/usr/lib/x86_64-linux-gnu",

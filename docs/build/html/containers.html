@@ -1,0 +1,260 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Containers &#8212; PDCpy 0.0.14 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/agogo.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Objects" href="objects.html" />
+    <link rel="prev" title="Welcome to PDCpy’s documentation!" href="index.html" /> 
+  </head><body>
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="index.html">PDCpy 0.0.14 documentation</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="index.html" title="Welcome to PDCpy’s documentation!"
+             accesskey="P">previous</a> |
+          <a href="objects.html" title="Objects"
+             accesskey="N">next</a> |
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="containers">
+<h1>Containers<a class="headerlink" href="#containers" title="Permalink to this heading">¶</a></h1>
+<p>Example of creating a container:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">import</span> <span class="nn">pdc</span>
+<span class="linenos">2</span>
+<span class="linenos">3</span><span class="k">with</span> <span class="n">pdc</span><span class="o">.</span><span class="n">ServerContext</span><span class="p">()</span> <span class="k">as</span> <span class="n">_</span><span class="p">:</span>
+<span class="linenos">4</span>   <span class="c1">#make a container.  The container is persistent by default.</span>
+<span class="linenos">5</span>   <span class="n">cont</span> <span class="o">=</span> <span class="n">pdc</span><span class="o">.</span><span class="n">Container</span><span class="p">(</span><span class="s1">&#39;persistent_cont&#39;</span><span class="p">)</span>
+<span class="linenos">6</span>
+<span class="linenos">7</span>   <span class="c1">#make a transient container, it will be deleted when the pdc server is closed</span>
+<span class="linenos">8</span>   <span class="n">cont2</span> <span class="o">=</span> <span class="n">pdc</span><span class="o">.</span><span class="n">Container</span><span class="p">(</span><span class="s1">&#39;transient_cont&#39;</span><span class="p">,</span> <span class="n">lifetime</span><span class="o">=</span><span class="n">pdc</span><span class="o">.</span><span class="n">Container</span><span class="o">.</span><span class="n">Lifetime</span><span class="o">.</span><span class="n">TRANSIENT</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="pdc.Container">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pdc.</span></span><span class="sig-name descname"><span class="pre">Container</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lifetime</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pdc.Container.Container.Lifetime" title="pdc.Container.Container.Lifetime"><span class="pre">Lifetime</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Lifetime.PERSISTENT</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pdc.Container" title="Permalink to this definition">¶</a></dt>
+<dd><div class="line-block">
+<div class="line">Containers can contain one or more objects, and objects can be part of one or more containers.</div>
+<div class="line">Containers can be used to allow objects to persist, and have no other functionality at the moment.</div>
+<div class="line">Every object must be created belonging to a container.</div>
+<div class="line"><br /></div>
+<div class="line">Containers are not namespaces for objects!  Objects in different containers must have different names.</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – the name of the container.  Container names should be unique between all processes that use PDC.</p></li>
+<li><p><strong>lifetime</strong> (<a class="reference internal" href="#pdc.Container.Container.Lifetime" title="pdc.Container.Container.Lifetime"><em>Lifetime</em></a>) – the container’s lifetime.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="pdc.Container.Container.Lifetime">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Lifetime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pdc.Container.Container.Lifetime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>The possible lifetimes of containers.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pdc.Container.Container.Lifetime.Lifetime.PERSISTENT">
+<span class="sig-prename descclassname"><span class="pre">Lifetime.</span></span><span class="sig-name descname"><span class="pre">PERSISTENT</span></span><a class="headerlink" href="#pdc.Container.Container.Lifetime.Lifetime.PERSISTENT" title="Permalink to this definition">¶</a></dt>
+<dd><p>The container and all objects in it will persist across server restarts.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pdc.Container.Container.Lifetime.Lifetime.TRANSIENT">
+<span class="sig-prename descclassname"><span class="pre">Lifetime.</span></span><span class="sig-name descname"><span class="pre">TRANSIENT</span></span><a class="headerlink" href="#pdc.Container.Container.Lifetime.Lifetime.TRANSIENT" title="Permalink to this definition">¶</a></dt>
+<dd><p>The container and all objects in it will be deleted when the server restarts.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pdc.Container.all_local_objects">
+<span class="sig-name descname"><span class="pre">all_local_objects</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">pdc.Object</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pdc.Container.all_local_objects" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get an iterable through all objects in this container that have been retrieved by the client, and haven’t yet been garbage collected.
+Deleting an object while this iterator is in use may cause undefined behavior.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>An iterable of Objects</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pdc.Container.create_object">
+<span class="sig-name descname"><span class="pre">create_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">unicode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">properties</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Object.Properties</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pdc.Container.create_object" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new object, placed in this container.  To get an existing object, use Object.get() instead</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – the name of the object.  Object names should be unique between all processes that use PDC, however, passing in a duplicate name will create the object anyway.</p></li>
+<li><p><strong>properties</strong> (<em>ObjectProperties</em>) – An ObjectProperties describing the properties of the object.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pdc.Container.get">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">unicode</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pdc.Container" title="pdc.Container"><span class="pre">Container</span></a></span></span><a class="headerlink" href="#pdc.Container.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get an existing container by name.
+If you try to get a container that does not exist, the server segfaults and the call blocks indeinitely.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – the name of the container.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The container.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pdc.Container.lifetime">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lifetime</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#pdc.Container.Container.Lifetime" title="pdc.container.Container.Lifetime"><span class="pre">Lifetime</span></a></em><a class="headerlink" href="#pdc.Container.lifetime" title="Permalink to this definition">¶</a></dt>
+<dd><p>The lifetime of this container. read-only.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pdc.Container.name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">unicode</span></em><a class="headerlink" href="#pdc.Container.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of this container. read-only</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pdc.Container.object_from_array">
+<span class="sig-name descname"><span class="pre">object_from_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="index.html#pdc.Type" title="pdc.Type"><span class="pre">Type</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prop</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'Object.Properties'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pdc.Container.object_from_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new object, placed in this container, from an array-like object.
+To get an existing object, use Object.get() instead</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – the name of the object.  Object names should be unique between all processes that use PDC, however, passing in a duplicate name will create the object anyway.</p></li>
+<li><p><strong>array</strong> – the array to create the object from.  It must be a numpy array, or be convertible to a numpy array via numpy.array().</p></li>
+<li><p><strong>type</strong> – If specified, the resulting object will have this type, if all elements of the array fit in this type.</p></li>
+<li><p><strong>prop</strong> – If specified, the app name, time step, and user id will be copied from this properties object to the resulting object’s properties.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pdc.Container.persist">
+<span class="sig-name descname"><span class="pre">persist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pdc.Container.persist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make this container persistent if it wasn’t already.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pdc.Container.tags">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tags</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="index.html#pdc.KVTags" title="pdc.main.KVTags"><span class="pre">KVTags</span></a></em><a class="headerlink" href="#pdc.Container.tags" title="Permalink to this definition">¶</a></dt>
+<dd><p>The tags of this container. See <a class="reference internal" href="index.html#pdc.KVTags" title="pdc.KVTags"><code class="xref py py-class docutils literal notranslate"><span class="pre">KVTags</span></code></a> for more information.</p>
+<p>NOTE: currently, deleting tags from containers is not supported.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">pdc.</span></span><span class="sig-name descname"><span class="pre">all_local_containers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><p>Get an iterable of all containers that have been retrieved by the client, and haven’t yet been garbage collected.
+Deleting a container after this function is called, then using the iterator may cause undefined behavior.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>An iterable of Containers</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          
+          <h3>Table of Contents</h3>
+          <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Welcome to PDCpy’s documentation!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#main-apis">Main APIs</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="objects.html">Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="regions.html">Regions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="queries.html">Queries</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+            </form>
+          </div>
+
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="index.html" title="Welcome to PDCpy’s documentation!"
+              >previous</a> |
+            <a href="objects.html" title="Objects"
+              >next</a> |
+            <a href="py-modindex.html" title="Python Module Index"
+              >modules</a> |
+            <a href="genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+              <br/>
+              <a href="_sources/containers.rst.txt"
+                rel="nofollow">Show Source</a>
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, gerzytet.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

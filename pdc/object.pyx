@@ -506,7 +506,7 @@ class Object:
     def data(self) -> 'QueryComponent':
         '''
         | An object used to build queries.
-        | See queries_ for more details.
+        | See :ref:`queries` for more details.
         '''
         return query.QueryComponent(self)
 
